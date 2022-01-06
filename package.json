@@ -8,12 +8,19 @@
     "start": "node backend/index",
     "server": "nodemon backend/index",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node seeders",
+    "data:destroy": "node seeders -d"
   },
   "author": "Deepak Chawla",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.1.2"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
