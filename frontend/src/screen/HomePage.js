@@ -1,31 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../component/Product'
 import { Link } from 'react-router-dom'
 import { listProducts } from '../action/productActions'
+import Loader from '../component/Loader'
+import Message from '../component/Message'
 
 const HomePage = () => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
 
   return (
     <>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col sm={12} md={6} lg={4} xl={3}>
-            <Link to={`/product/${product._id}`}>
-              <Product key={product._id} product={product} />
-            </Link>
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant={'danger'}>{error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col sm={12} md={6} lg={4} xl={3} key={product._id}>
+              <Link to={`/product/${product._id}`}>
+                <Product key={product._id} product={product} />
+              </Link>
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }
