@@ -4,6 +4,8 @@ import Footer from './component/Footer'
 import Header from './component/Header'
 import CartPage from './screen/CartPage'
 import HomePage from './screen/HomePage'
+import LoginPage from './screen/LoginPage'
+import RegisterPage from './screen/RegisterPage'
 import ProductPage from './screen/ProductPage'
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
       <main className='py-3'>
         <Container>
           <Routes>
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/login' element={<LoginPage />} />
             <Route path='/' element={<HomePage />} />
             <Route path='/product/:productId' element={<ProductPage />} />
             <Route path='/cart' element={<CartPage />} />
