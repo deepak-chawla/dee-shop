@@ -4,11 +4,15 @@ import {
   getUserProfile,
   login,
   register,
+  updateUserProfile,
 } from '../controllers/userControllers.js'
 import { protect } from '../middlewares/authMiddlewares.js'
 
 router.post('/register', register)
 router.post('/login', login)
-router.get('/profile', protect, getUserProfile)
+router
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile)
 
 export default router
