@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { login } from '../action/userActions'
 import Message from '../component/Message'
@@ -11,7 +11,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  const redirect = useSearchParams()
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -20,7 +19,7 @@ const LoginPage = () => {
     if (userInfo) {
       navigate('/')
     }
-  }, [userInfo])
+  }, [navigate, userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()

@@ -7,6 +7,7 @@ import HomePage from './screen/HomePage'
 import LoginPage from './screen/LoginPage'
 import RegisterPage from './screen/RegisterPage'
 import ProductPage from './screen/ProductPage'
+import ProfilePage from './screen/ProfilePage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/login' element={<LoginPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
             <Route path='/' element={<HomePage />} />
             <Route path='/product/:productId' element={<ProductPage />} />
             <Route path='/cart' element={<CartPage />} />
