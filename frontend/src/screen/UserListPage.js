@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
-import { getUserList } from '../action/userActions'
+import { getUserList, userDelete } from '../action/userActions'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +13,12 @@ const UserListPage = () => {
   const userList = useSelector((state) => state.userList)
   const { loading, users, error } = userList
   const { userInfo } = useSelector((state) => state.userLogin)
+  const {
+    loading: deleteLoading,
+    success,
+    message,
+    error: deleteError,
+  } = useSelector((state) => state.deleteUser)
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -20,15 +26,17 @@ const UserListPage = () => {
     } else {
       navigate('/login')
     }
-  }, [dispatch])
+  }, [dispatch, navigate, success])
 
   const deleteHandler = (id) => {
-    console.log('delete user')
+    dispatch(userDelete(id))
   }
 
   return (
     <>
       <h2>User List</h2>
+      {deleteLoading && <Loader />}
+      {success && <Message>{message}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
