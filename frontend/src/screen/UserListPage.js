@@ -57,7 +57,7 @@ const UserListPage = () => {
                     </Button>
                   </LinkContainer>
                   <Button
-                    variant='light'
+                    variant='danger'
                     className='btn-sm'
                     onClick={() => deleteHandler(user._id)}
                   >
