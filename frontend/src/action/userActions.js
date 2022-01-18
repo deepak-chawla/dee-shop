@@ -16,6 +16,7 @@ import {
   USER_LIST_FAIL,
   USER_LIST_SUCCESS,
   USER_LIST_REQUEST,
+  USER_LIST_RESET,
 } from '../constant/userConstants.js'
 
 const updateUserProfileDetails = (user) => async (dispatch, getState) => {
@@ -160,6 +161,9 @@ const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch({
     type: USER_LOGOUT,
+  })
+  dispatch({
+    type: USER_LIST_RESET,
   })
 }
 
