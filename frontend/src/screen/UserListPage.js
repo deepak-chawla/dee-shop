@@ -5,14 +5,21 @@ import { Table, Button } from 'react-bootstrap'
 import { getUserList } from '../action/userActions'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
+import { useNavigate } from 'react-router-dom'
 
 const UserListPage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const userList = useSelector((state) => state.userList)
   const { loading, users, error } = userList
+  const { userInfo } = useSelector((state) => state.userLogin)
 
   useEffect(() => {
-    dispatch(getUserList())
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(getUserList())
+    } else {
+      navigate('/login')
+    }
   }, [dispatch])
 
   const deleteHandler = (id) => {
