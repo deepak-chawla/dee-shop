@@ -12,6 +12,7 @@ import ProfilePage from './screen/ProfilePage'
 import PaymentPage from './screen/PaymentPage'
 import PlaceOrderPage from './screen/PlaceOrderPage'
 import OrderDetailsPage from './screen/OrderDetailsPage'
+import UserListPage from './screen/UserListPage'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path='/product/:productId' element={<ProductPage />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/cart/:productId' element={<CartPage />} />
+            <Route path='/admin/userlist' element={<UserListPage />} />
           </Routes>
         </Container>
       </main>
