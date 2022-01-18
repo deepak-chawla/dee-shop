@@ -13,12 +13,7 @@ const UserListPage = () => {
   const userList = useSelector((state) => state.userList)
   const { loading, users, error } = userList
   const { userInfo } = useSelector((state) => state.userLogin)
-  const {
-    loading: deleteLoading,
-    success,
-    message,
-    error: deleteError,
-  } = useSelector((state) => state.deleteUser)
+  const { success } = useSelector((state) => state.deleteUser)
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -26,17 +21,19 @@ const UserListPage = () => {
     } else {
       navigate('/login')
     }
-  }, [dispatch, navigate, success])
+  }, [dispatch, navigate, success, userInfo])
 
   const deleteHandler = (id) => {
-    dispatch(userDelete(id))
+    if (window.confirm('Are you sure?')) {
+      dispatch(userDelete(id))
+    }
   }
 
   return (
     <>
       <h2>User List</h2>
-      {deleteLoading && <Loader />}
-      {success && <Message>{message}</Message>}
+      {/* {deleteLoading && <Loader />} */}
+      {/* {success && <Message>{message}</Message>} */}
       {loading ? (
         <Loader />
       ) : error ? (
