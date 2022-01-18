@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
+import { Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { createOrder, getOrderDetails } from '../action/orderActions'
-import CheckoutSteps from '../component/CheckoutSteps'
+import { Link, useParams } from 'react-router-dom'
+import { getOrderDetails } from '../action/orderActions'
 import Message from '../component/Message'
 import Loader from '../component/Loader'
 

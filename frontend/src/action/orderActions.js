@@ -6,6 +6,9 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
   ORDER_DETAILS_FAIL,
+  MY_ORDER_LIST_REQUEST,
+  MY_ORDER_LIST_SUCCESS,
+  MY_ORDER_LIST_FAIL,
 } from '../constant/orderConstants'
 
 const createOrder = (order) => async (dispatch, getState) => {
@@ -71,4 +74,35 @@ const getOrderDetails = (id) => async (dispatch, getState) => {
   }
 }
 
-export { createOrder, getOrderDetails }
+const getMyOrderList = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: MY_ORDER_LIST_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(
+      `http://localhost:2000/api/orders/myorders`,
+      config
+    )
+    dispatch({
+      type: MY_ORDER_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: MY_ORDER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export { createOrder, getOrderDetails, getMyOrderList }
