@@ -11,6 +11,7 @@ import ProductPage from './screen/ProductPage'
 import ProfilePage from './screen/ProfilePage'
 import PaymentPage from './screen/PaymentPage'
 import PlaceOrderPage from './screen/PlaceOrderPage'
+import OrderDetailsPage from './screen/OrderDetailsPage'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='/shipping' element={<Shipping />} />
             <Route path='/payment' element={<PaymentPage />} />
             <Route path='/placeorder' element={<PlaceOrderPage />} />
+            <Route path='/order/:orderId' element={<OrderDetailsPage />} />
             <Route path='/' element={<HomePage />} />
             <Route path='/product/:productId' element={<ProductPage />} />
             <Route path='/cart' element={<CartPage />} />
