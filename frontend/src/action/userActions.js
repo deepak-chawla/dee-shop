@@ -12,7 +12,6 @@ import {
   UPDATE_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
-  UPDATE_USER_PROFILE_RESET,
 } from '../constant/userConstants.js'
 import axios from 'axios'
 

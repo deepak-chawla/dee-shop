@@ -13,6 +13,10 @@ const CartPage = () => {
   const qty = Number(searchParams.get('qty'))
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty))
@@ -24,7 +28,11 @@ const CartPage = () => {
   }
 
   const checkOutHandler = () => {
-    navigate('/login?redirect=shopping')
+    if (userInfo) {
+      navigate('/shipping')
+    } else {
+      navigate('/login?redirect=shipping')
+    }
   }
 
   return (
