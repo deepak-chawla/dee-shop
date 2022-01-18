@@ -13,6 +13,9 @@ import {
   UPDATE_USER_PROFILE_FAIL,
   UPDATE_USER_PROFILE_REQUEST,
   UPDATE_USER_PROFILE_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_SUCCESS,
+  USER_LIST_REQUEST,
 } from '../constant/userConstants.js'
 
 const updateUserProfileDetails = (user) => async (dispatch, getState) => {
