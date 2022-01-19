@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
-import { getUserDetails } from '../action/userActions'
+import { getUserDetails, userUpdate } from '../action/userActions'
 import Message from '../component/Message'
 import Loader from '../component/Loader'
 import FormContainer from '../component/FormContainer'
+import {
+  USER_DETAILS_RESET,
+  USER_UPDATE_RESET,
+} from '../constant/userConstants'
 
 const UserEditPage = () => {
   const [name, setName] = useState('')
@@ -14,22 +18,31 @@ const UserEditPage = () => {
 
   const dispatch = useDispatch()
   const { userId } = useParams()
+  const navigate = useNavigate()
   const userDetails = useSelector((state) => state.userDetails)
   const { user, loading, error } = userDetails
+  const updateUser = useSelector((state) => state.updateUser)
+  const { success } = updateUser
 
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
-      dispatch(getUserDetails(userId))
+    if (success) {
+      dispatch({ type: USER_DETAILS_RESET })
+      dispatch({ type: USER_UPDATE_RESET })
+      navigate('/admin/userlist')
     } else {
-      setName(user.name)
-      setEmail(user.email)
-      setIsAdmin(user.isAdmin)
+      if (!user.name || user._id !== userId) {
+        dispatch(getUserDetails(userId))
+      } else {
+        setName(user.name)
+        setEmail(user.email)
+        setIsAdmin(user.isAdmin)
+      }
     }
-  }, [dispatch, user, userId])
+  }, [dispatch, user, userId, success, navigate])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log('update user')
+    dispatch(userUpdate({ _id: userId, name, email, isAdmin }))
   }
 
   return (

@@ -20,6 +20,9 @@ import {
   USER_DELETE_FAIL,
   USER_DELETE_SUCCESS,
   USER_DELETE_REQUEST,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_REQUEST,
 } from '../constant/userConstants.js'
 
 const updateUserProfileDetails = (user) => async (dispatch, getState) => {
@@ -229,6 +232,38 @@ const userDelete = (id) => async (dispatch, getState) => {
   }
 }
 
+const userUpdate = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UPDATE_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(
+      `http://localhost:2000/api/user/${user._id}`,
+      user,
+      config
+    )
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
 export {
   register,
   login,
@@ -237,4 +272,5 @@ export {
   updateUserProfileDetails,
   getUserList,
   userDelete,
+  userUpdate,
 }
