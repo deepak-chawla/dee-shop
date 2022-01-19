@@ -12,6 +12,9 @@ import {
   ORDER_LIST_FAIL,
   ORDER_LIST_SUCCESS,
   ORDER_LIST_REQUEST,
+  UPDATE_ORDER_DELIVERED_REQUEST,
+  UPDATE_ORDER_DELIVERED_SUCCESS,
+  UPDATE_ORDER_DELIVERED_FAIL,
 } from '../constant/orderConstants'
 
 const createOrder = (order) => async (dispatch, getState) => {
@@ -136,4 +139,42 @@ const getOrderList = () => async (dispatch, getState) => {
   }
 }
 
-export { createOrder, getOrderDetails, getMyOrderList, getOrderList }
+const updateToDelivered = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: UPDATE_ORDER_DELIVERED_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+    const { data } = await axios.put(
+      `http://localhost:2000/api/order/${id}/delivered`,
+      {},
+      config
+    )
+    dispatch({
+      type: UPDATE_ORDER_DELIVERED_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: UPDATE_ORDER_DELIVERED_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export {
+  createOrder,
+  getOrderDetails,
+  getMyOrderList,
+  getOrderList,
+  updateToDelivered,
+}
