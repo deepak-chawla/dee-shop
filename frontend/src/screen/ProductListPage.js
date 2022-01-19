@@ -5,7 +5,12 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
 import { useNavigate } from 'react-router-dom'
-import { listProducts } from '../action/productActions'
+import {
+  createProduct,
+  deleteProduct,
+  listProducts,
+} from '../action/productActions'
+import { PRODUCT_DELETE_RESET } from '../constant/productConstants'
 
 const ProductListPage = () => {
   const dispatch = useDispatch()
@@ -13,23 +18,28 @@ const ProductListPage = () => {
   const productList = useSelector((state) => state.productList)
   const { loading, products, error } = productList
   const { userInfo } = useSelector((state) => state.userLogin)
+  const { product } = useSelector((state) => state.productCreate)
+  const { message } = useSelector((state) => state.productDelete)
 
   useEffect(() => {
+    if (message) {
+      dispatch({ type: PRODUCT_DELETE_RESET })
+    }
     if (userInfo && userInfo.isAdmin) {
       dispatch(listProducts())
     } else {
       navigate('/login')
     }
-  }, [dispatch, navigate, userInfo])
+  }, [dispatch, navigate, userInfo, message])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
-      console.log('delete')
+      dispatch(deleteProduct(id))
     }
   }
 
   const createProductHandler = () => {
-    console.log('createProduct')
+    dispatch(createProduct())
   }
 
   return (
