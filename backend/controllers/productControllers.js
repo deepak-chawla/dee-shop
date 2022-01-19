@@ -11,4 +11,57 @@ const getProductById = asyncHandler(async (req, res) => {
   res.json(product)
 })
 
-export { getProducts, getProductById }
+const deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id)
+  if (product) {
+    await product.remove()
+    res.json({ message: 'Product removed' })
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
+const createProduct = asyncHandler(async (req, res) => {
+  const product = new Product({
+    user: req.user._id,
+    name: 'Sample Name',
+    image: '/images/sample.jpg',
+    description: 'Sample description',
+    brand: 'Sample brand',
+    category: 'Sample category',
+    price: 0,
+    countInStock: 0,
+    numReviews: 0,
+  })
+  const createdProduct = await product.save()
+  res.status(201).json(createdProduct)
+})
+
+const updateProduct = asyncHandler(async (req, res) => {
+  const { name, image, description, brand, category, price, countInStock } =
+    req.body
+  const product = await Product.findById(req.params.id)
+  if (product) {
+    product.name = name
+    product.image = image
+    product.description = description
+    product.brand = brand
+    product.category = category
+    product.price = price
+    product.countInStock = countInStock
+    const updatedProduct = await product.save()
+    res.json(updatedProduct)
+  } else {
+    res.status(404)
+    throw new Error('Product not found')
+  }
+})
+
+export {
+  getProducts,
+  getProductById,
+  deleteProduct,
+  updateProduct,
+  createProduct,
+}
