@@ -10,7 +10,10 @@ import {
   deleteProduct,
   listProducts,
 } from '../action/productActions'
-import { PRODUCT_DELETE_RESET } from '../constant/productConstants'
+import {
+  PRODUCT_CREATE_RESET,
+  PRODUCT_DELETE_RESET,
+} from '../constant/productConstants'
 
 const ProductListPage = () => {
   const dispatch = useDispatch()
@@ -18,19 +21,21 @@ const ProductListPage = () => {
   const productList = useSelector((state) => state.productList)
   const { loading, products, error } = productList
   const { userInfo } = useSelector((state) => state.userLogin)
-  const { product } = useSelector((state) => state.productCreate)
   const { message } = useSelector((state) => state.productDelete)
+  const { product, success } = useSelector((state) => state.productCreate)
 
   useEffect(() => {
-    if (message) {
-      dispatch({ type: PRODUCT_DELETE_RESET })
-    }
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts())
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET })
+    dispatch({ type: PRODUCT_DELETE_RESET })
+    if (!userInfo.isAdmin) {
       navigate('/login')
     }
-  }, [dispatch, navigate, userInfo, message])
+    if (success) {
+      navigate(`/product/edit/${product._id}`)
+    } else {
+      dispatch(listProducts())
+    }
+  }, [dispatch, navigate, userInfo, message, success, product._id])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
@@ -79,7 +84,7 @@ const ProductListPage = () => {
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>
-                  <LinkContainer to={`/user/edit/${product._id}`}>
+                  <LinkContainer to={`/product/edit/${product._id}`}>
                     <Button variant='light' className='btn-sm'>
                       <i className='fas fa-edit'></i>
                     </Button>
