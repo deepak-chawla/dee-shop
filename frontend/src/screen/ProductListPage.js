@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Row, Col } from 'react-bootstrap'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
 import { useNavigate } from 'react-router-dom'
@@ -28,9 +28,22 @@ const ProductListPage = () => {
     }
   }
 
+  const createProductHandler = () => {
+    console.log('createProduct')
+  }
+
   return (
     <>
-      <h2>Product List</h2>
+      <Row className='align-items-center'>
+        <Col md={9}>
+          <h2>Product List</h2>
+        </Col>
+        <Col className='text-right'>
+          <Button className='my-3' onClick={createProductHandler}>
+            <i className='fas fa-plus'></i> Create Product
+          </Button>
+        </Col>
+      </Row>
       {loading ? (
         <Loader />
       ) : error ? (
