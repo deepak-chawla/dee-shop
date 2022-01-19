@@ -31,7 +31,6 @@ const ProductEditPage = () => {
   useEffect(() => {
     if (success) {
       dispatch({ type: PRODUCT_UPDATE_RESET })
-      dispatch({ type: PRODUCT_DETAILS_RESET })
       navigate('/admin/productlist')
     }
     if (!product.name || product._id !== productId) {

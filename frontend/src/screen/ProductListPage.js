@@ -35,7 +35,8 @@ const ProductListPage = () => {
     } else {
       dispatch(listProducts())
     }
-  }, [dispatch, navigate, userInfo, message, success, product._id])
+    // eslint-disable-next-line
+  }, [dispatch, navigate, userInfo, message, success])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure?')) {
