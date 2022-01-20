@@ -6,15 +6,18 @@ import { Link } from 'react-router-dom'
 import { listProducts } from '../action/productActions'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
+import { useSearchParams } from 'react-router-dom'
 
 const HomePage = () => {
   const dispatch = useDispatch()
+  const [searchParams] = useSearchParams()
+  const query = searchParams.get('q') ? searchParams.get('q') : ''
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
 
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(query))
+  }, [dispatch, query])
 
   return (
     <>

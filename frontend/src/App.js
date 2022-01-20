@@ -33,6 +33,7 @@ function App() {
             <Route path='/placeorder' element={<PlaceOrderPage />} />
             <Route path='/order/:orderId' element={<OrderDetailsPage />} />
             <Route path='/' element={<HomePage />} />
+            <Route path='/search/:keyword' element={<HomePage />} />
             <Route path='/product/:productId' element={<ProductPage />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/cart/:productId' element={<CartPage />} />
