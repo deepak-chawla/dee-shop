@@ -4,6 +4,10 @@ const reviewSchema = new mongoose.Schema({
   name: { type: String },
   rating: { type: Number },
   comment: { type: String },
+  user: {
+    type: String,
+    required: true,
+  },
 })
 
 const productSchema = new mongoose.Schema({
