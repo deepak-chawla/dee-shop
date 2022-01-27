@@ -7,6 +7,7 @@ import { listProducts } from '../action/productActions'
 import Loader from '../component/Loader'
 import Message from '../component/Message'
 import { useSearchParams } from 'react-router-dom'
+import ProductsCarousel from '../component/ProductsCarousel'
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,7 @@ const HomePage = () => {
 
   return (
     <>
+      {!query && <ProductsCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
