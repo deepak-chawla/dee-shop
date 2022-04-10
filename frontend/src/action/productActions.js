@@ -29,7 +29,7 @@ export const listProducts =
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
       const { data } = await axios.get(
-        `http://localhost:2000/api/products?keyword=${keyword}`
+        `https://dee-shop.herokuapp.com/api/products?keyword=${keyword}`
       )
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
@@ -49,7 +49,9 @@ export const listProducts =
 export const listProductsDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
-    const { data } = await axios.get(`http://localhost:2000/api/product/${id}`)
+    const { data } = await axios.get(
+      `https://dee-shop.herokuapp.com/api/product/${id}`
+    )
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
@@ -78,7 +80,7 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.post(
-      `http://localhost:2000/api/product`,
+      `https://dee-shop.herokuapp.com/api/product`,
       {},
       config
     )
@@ -110,7 +112,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.delete(
-      `http://localhost:2000/api/product/${id}`,
+      `https://dee-shop.herokuapp.com/api/product/${id}`,
       config
     )
     dispatch({
@@ -141,7 +143,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.put(
-      `http://localhost:2000/api/product/${product._id}`,
+      `https://dee-shop.herokuapp.com/api/product/${product._id}`,
       product,
       config
     )
@@ -173,7 +175,7 @@ export const addReview = (productId, review) => async (dispatch, getState) => {
       },
     }
     await axios.post(
-      `http://localhost:2000/api/product/${productId}/review`,
+      `https://dee-shop.herokuapp.com/api/product/${productId}/review`,
       review,
       config
     )
@@ -194,7 +196,9 @@ export const addReview = (productId, review) => async (dispatch, getState) => {
 export const listTopProducts = () => async (dispatch) => {
   try {
     dispatch({ type: TOP_PRODUCT_REQUEST })
-    const { data } = await axios.get(`http://localhost:2000/api/products/top`)
+    const { data } = await axios.get(
+      `https://dee-shop.herokuapp.com/api/products/top`
+    )
     dispatch({
       type: TOP_PRODUCT_SUCCESS,
       payload: data,

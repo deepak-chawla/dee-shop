@@ -38,7 +38,7 @@ const updateUserProfileDetails = (user) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.put(
-      `http://localhost:2000/api/user/profile`,
+      `https://dee-shop.herokuapp.com/api/user/profile`,
       user,
       config
     )
@@ -76,7 +76,7 @@ const getUserDetails = (id) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.get(
-      `http://localhost:2000/api/user/${id}`,
+      `https://dee-shop.herokuapp.com/api/user/${id}`,
       config
     )
     dispatch({
@@ -105,7 +105,7 @@ const register = (name, email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      'http://localhost:2000/api/user/register',
+      'https://dee-shop.herokuapp.com/api/user/register',
       { name, email, password },
       config
     )
@@ -142,7 +142,7 @@ const login = (email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      'http://localhost:2000/api/user/login',
+      'https://dee-shop.herokuapp.com/api/user/login',
       { email, password },
       config
     )
@@ -185,7 +185,10 @@ const getUserList = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.get(`http://localhost:2000/api/user`, config)
+    const { data } = await axios.get(
+      `https://dee-shop.herokuapp.com/api/user`,
+      config
+    )
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data,
@@ -214,7 +217,7 @@ const userDelete = (id) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.delete(
-      `http://localhost:2000/api/user/${id}`,
+      `https://dee-shop.herokuapp.com/api/user/${id}`,
       config
     )
     dispatch({
@@ -245,7 +248,7 @@ const userUpdate = (user) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.put(
-      `http://localhost:2000/api/user/${user._id}`,
+      `https://dee-shop.herokuapp.com/api/user/${user._id}`,
       user,
       config
     )

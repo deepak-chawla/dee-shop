@@ -7,7 +7,9 @@ import {
 import axios from 'axios'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  const { data } = await axios.get(`http://localhost:2000/api/product/${id}`)
+  const { data } = await axios.get(
+    `https://dee-shop.herokuapp.com/api/product/${id}`
+  )
   dispatch({
     type: ADD_TO_CART,
     payload: {

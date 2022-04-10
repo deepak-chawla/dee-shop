@@ -30,7 +30,7 @@ const createOrder = (order) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.post(
-      `http://localhost:2000/api/order`,
+      `https://dee-shop.herokuapp.com/api/order`,
       order,
       config
     )
@@ -62,7 +62,7 @@ const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.get(
-      `http://localhost:2000/api/order/${id}`,
+      `https://dee-shop.herokuapp.com/api/order/${id}`,
       config
     )
     dispatch({
@@ -93,7 +93,7 @@ const getMyOrderList = () => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.get(
-      `http://localhost:2000/api/orders/myorders`,
+      `https://dee-shop.herokuapp.com/api/orders/myorders`,
       config
     )
     dispatch({
@@ -123,7 +123,10 @@ const getOrderList = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.get(`http://localhost:2000/api/order`, config)
+    const { data } = await axios.get(
+      `https://dee-shop.herokuapp.com/api/order`,
+      config
+    )
     dispatch({
       type: ORDER_LIST_SUCCESS,
       payload: data,
@@ -152,7 +155,7 @@ const updateToDelivered = (id) => async (dispatch, getState) => {
       },
     }
     const { data } = await axios.put(
-      `http://localhost:2000/api/order/${id}/delivered`,
+      `https://dee-shop.herokuapp.com/api/order/${id}/delivered`,
       {},
       config
     )
